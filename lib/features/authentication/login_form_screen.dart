@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/size.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
+import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
@@ -13,10 +14,17 @@ class LoginFormScreen extends StatefulWidget {
 class _LoginFormScreenState extends State<LoginFormScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  Map<String, String> formData = {};
+
   void _onSubmitTap() {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const InterestsScreen(),
+          ),
+        );
       }
     }
   }
@@ -41,6 +49,11 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 validator: (value) {
                   return "I don't like your email";
                 },
+                onSaved: (newValue) {
+                  if (newValue != null) {
+                    formData["email"] = newValue;
+                  }
+                },
               ),
               Gaps.v16,
               TextFormField(
@@ -49,6 +62,11 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 ),
                 validator: (value) {
                   return "Wrong Password.";
+                },
+                onSaved: (newValue) {
+                  if (newValue != null) {
+                    formData["password"] = newValue;
+                  }
                 },
               ),
               Gaps.v28,

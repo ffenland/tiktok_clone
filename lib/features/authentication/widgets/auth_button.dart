@@ -17,11 +17,19 @@ class AuthButton extends StatelessWidget {
           horizontal: Sizes.size14,
         ),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey.shade300,
-            width: Sizes.size1,
-          ),
-        ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: Colors.grey.shade300,
+              width: Sizes.size1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.shade400,
+                offset: const Offset(2, 2),
+                blurRadius: 1,
+              )
+            ]),
         child: Stack(
           alignment: Alignment.center,
           children: [
