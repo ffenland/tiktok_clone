@@ -20,11 +20,12 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const InterestsScreen(),
-          ),
-        );
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const InterestsScreen(),
+            ), (route) {
+          return false;
+        });
       }
     }
   }
@@ -47,7 +48,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   hintText: "Email",
                 ),
                 validator: (value) {
-                  return "I don't like your email";
+                  return null;
                 },
                 onSaved: (newValue) {
                   if (newValue != null) {
@@ -61,7 +62,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   hintText: "Password",
                 ),
                 validator: (value) {
-                  return "Wrong Password.";
+                  return null;
                 },
                 onSaved: (newValue) {
                   if (newValue != null) {

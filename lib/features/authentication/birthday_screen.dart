@@ -18,11 +18,12 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   DateTime initialDate = DateTime(DateTime.now().year - 11);
 
   void _onNextTap() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const InterestsScreen(),
-      ),
-    );
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const InterestsScreen(),
+        ), (route) {
+      return false;
+    });
   }
 
   @override
