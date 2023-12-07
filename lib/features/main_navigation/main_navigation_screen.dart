@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -11,24 +12,6 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectedIndex = 0;
 
-  final screens = [
-    const Center(
-      child: Text("Home"),
-    ),
-    const Center(
-      child: Text("Search"),
-    ),
-    const Center(
-      child: Text("Home"),
-    ),
-    const Center(
-      child: Text("Search"),
-    ),
-    const Center(
-      child: Text("Home"),
-    ),
-  ];
-
   void _onTap(int index) {
     setState(() {
       _selectedIndex = index;
@@ -38,7 +21,30 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[_selectedIndex],
+      body: Stack(
+        children: [
+          Offstage(
+            offstage: _selectedIndex != 0,
+            child: const VideoTimlineScreen(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 1,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 2,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 3,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 4,
+            child: Container(),
+          )
+        ],
+      ),
       bottomNavigationBar: NavigationBar(
         destinations: const [
           NavigationDestination(
@@ -50,13 +56,17 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             label: "Search",
           ),
           NavigationDestination(
-            icon: FaIcon(FontAwesomeIcons.house),
-            label: "Home",
+            icon: FaIcon(FontAwesomeIcons.video),
+            label: "Video",
           ),
           NavigationDestination(
-            icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
-            label: "Search",
-          )
+            icon: FaIcon(FontAwesomeIcons.message),
+            label: "Message",
+          ),
+          NavigationDestination(
+            icon: FaIcon(FontAwesomeIcons.user),
+            label: "Profile",
+          ),
         ],
         selectedIndex: _selectedIndex,
         onDestinationSelected: _onTap,
