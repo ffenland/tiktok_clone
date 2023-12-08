@@ -11,8 +11,22 @@ class VideoComments extends StatefulWidget {
 }
 
 class _VideoCommentsState extends State<VideoComments> {
+  bool _isWriting = false;
+
+  void _onStartWriting() {
+    setState(() {
+      _isWriting = true;
+    });
+  }
+
   void _onClosePressed() {
     Navigator.of(context).pop();
+    _isWriting = false;
+  }
+
+  void _stopWriting() {
+    FocusScope.of(context).unfocus();
+    _isWriting = false;
   }
 
   @override
@@ -36,93 +50,134 @@ class _VideoCommentsState extends State<VideoComments> {
                 icon: const FaIcon(FontAwesomeIcons.xmark))
           ],
         ),
-        body: Stack(
-          children: [
-            ListView.separated(
-              padding: const EdgeInsets.symmetric(
-                vertical: Sizes.size10,
-                horizontal: Sizes.size16,
-              ),
-              itemCount: 10,
-              separatorBuilder: (context, index) => Gaps.v10,
-              itemBuilder: (context, index) => Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CircleAvatar(
-                    radius: 20,
-                    child: Text("ffen"),
-                  ),
-                  Gaps.h10,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "ffen",
-                          style: TextStyle(
-                            color: Colors.grey.shade800,
-                            fontSize: Sizes.size14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Gaps.v5,
-                        const Text(
-                            "sadklfasdjflkasdjflkasdjfasldkfjasldkfjasdlkfjasdlkfjasdflkasdjf")
-                      ],
+        body: GestureDetector(
+          onTap: _stopWriting,
+          child: Stack(
+            children: [
+              ListView.separated(
+                padding: const EdgeInsets.only(
+                  top: Sizes.size10,
+                  left: Sizes.size16,
+                  right: Sizes.size16,
+                  bottom: Sizes.size96,
+                ),
+                itemCount: 10,
+                separatorBuilder: (context, index) => Gaps.v10,
+                itemBuilder: (context, index) => Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CircleAvatar(
+                      radius: 20,
+                      child: Text("ffen"),
                     ),
-                  ),
-                  Gaps.h10,
-                  Column(
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.heart,
-                        color: Colors.grey.shade500,
+                    Gaps.h10,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "ffen",
+                            style: TextStyle(
+                              color: Colors.grey.shade800,
+                              fontSize: Sizes.size14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Gaps.v5,
+                          const Text(
+                              "sadklfasdjflkasdjflkasdjfasldkfjasldkfjasdlkfjasdlkfjasdflkasdjf")
+                        ],
                       ),
-                      Gaps.v2,
-                      Text(
-                        "52,2K",
-                        style: TextStyle(
+                    ),
+                    Gaps.h10,
+                    Column(
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.heart,
                           color: Colors.grey.shade500,
                         ),
-                      )
-                    ],
-                  )
-                ],
+                        Gaps.v2,
+                        Text(
+                          "52,2K",
+                          style: TextStyle(
+                            color: Colors.grey.shade500,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              width: size.width,
-              child: BottomAppBar(
-                color: Colors.white,
-                child: Row(children: [
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.grey.shade500,
-                    foregroundColor: Colors.white,
-                    child: const Text("ffen"),
-                  ),
-                  Gaps.h10,
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "Write comment",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Sizes.size12),
-                          borderSide: BorderSide.none,
-                        ),
-                        filled: true,
-                        fillColor: Colors.grey.shade200,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: Sizes.size12,
-                        ),
-                      ),
+              Positioned(
+                bottom: 0,
+                width: size.width,
+                child: BottomAppBar(
+                  color: Colors.white,
+                  child: Row(children: [
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.grey.shade500,
+                      foregroundColor: Colors.white,
+                      child: const Text("ffen"),
                     ),
-                  )
-                ]),
-              ),
-            )
-          ],
+                    Gaps.h10,
+                    Expanded(
+                      child: TextField(
+                        onTap: _onStartWriting,
+                        decoration: InputDecoration(
+                          hintText: "Write comment",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(Sizes.size12),
+                            borderSide: BorderSide.none,
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey.shade200,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: Sizes.size12,
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(right: Sizes.size14),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                FaIcon(
+                                  FontAwesomeIcons.at,
+                                  color: Colors.grey.shade800,
+                                ),
+                                Gaps.h10,
+                                FaIcon(
+                                  FontAwesomeIcons.gift,
+                                  color: Colors.grey.shade800,
+                                ),
+                                Gaps.h10,
+                                FaIcon(
+                                  FontAwesomeIcons.faceSmile,
+                                  color: Colors.grey.shade800,
+                                ),
+                                Gaps.h10,
+                                GestureDetector(
+                                  onTap: _stopWriting,
+                                  child: FaIcon(
+                                    FontAwesomeIcons.circleArrowUp,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.newline,
+                        minLines: null,
+                        maxLines: null,
+                        expands: true,
+                      ),
+                    )
+                  ]),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
