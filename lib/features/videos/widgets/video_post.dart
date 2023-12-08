@@ -71,6 +71,7 @@ class _VideoPostState extends State<VideoPost>
       _onToggelPause();
     }
     await showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (context) => const VideoComments(),
     );

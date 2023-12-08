@@ -17,7 +17,9 @@ class _VideoCommentsState extends State<VideoComments> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
+      height: size.height * 0.8,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
@@ -34,68 +36,93 @@ class _VideoCommentsState extends State<VideoComments> {
                 icon: const FaIcon(FontAwesomeIcons.xmark))
           ],
         ),
-        body: ListView.separated(
-          padding: const EdgeInsets.symmetric(
-            vertical: Sizes.size10,
-            horizontal: Sizes.size16,
-          ),
-          itemCount: 10,
-          separatorBuilder: (context, index) => Gaps.v10,
-          itemBuilder: (context, index) => Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CircleAvatar(
-                radius: 20,
-                child: Text("ffen"),
+        body: Stack(
+          children: [
+            ListView.separated(
+              padding: const EdgeInsets.symmetric(
+                vertical: Sizes.size10,
+                horizontal: Sizes.size16,
               ),
-              Gaps.h10,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "ffen",
-                      style: TextStyle(
-                        color: Colors.grey.shade800,
-                        fontSize: Sizes.size14,
-                        fontWeight: FontWeight.bold,
+              itemCount: 10,
+              separatorBuilder: (context, index) => Gaps.v10,
+              itemBuilder: (context, index) => Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                    radius: 20,
+                    child: Text("ffen"),
+                  ),
+                  Gaps.h10,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "ffen",
+                          style: TextStyle(
+                            color: Colors.grey.shade800,
+                            fontSize: Sizes.size14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Gaps.v5,
+                        const Text(
+                            "sadklfasdjflkasdjflkasdjfasldkfjasldkfjasdlkfjasdlkfjasdflkasdjf")
+                      ],
+                    ),
+                  ),
+                  Gaps.h10,
+                  Column(
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.heart,
+                        color: Colors.grey.shade500,
+                      ),
+                      Gaps.v2,
+                      Text(
+                        "52,2K",
+                        style: TextStyle(
+                          color: Colors.grey.shade500,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              width: size.width,
+              child: BottomAppBar(
+                color: Colors.white,
+                child: Row(children: [
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.grey.shade500,
+                    foregroundColor: Colors.white,
+                    child: const Text("ffen"),
+                  ),
+                  Gaps.h10,
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Write comment",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(Sizes.size12),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: Sizes.size12,
+                        ),
                       ),
                     ),
-                    Gaps.v5,
-                    const Text(
-                        "sadklfasdjflkasdjflkasdjfasldkfjasldkfjasdlkfjasdlkfjasdflkasdjf")
-                  ],
-                ),
+                  )
+                ]),
               ),
-              Gaps.h10,
-              Column(
-                children: [
-                  FaIcon(
-                    FontAwesomeIcons.heart,
-                    color: Colors.grey.shade500,
-                  ),
-                  Gaps.v2,
-                  Text("52,2K",
-                      style: TextStyle(
-                        color: Colors.grey.shade500,
-                      ))
-                ],
-              )
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          child: Row(children: [
-            CircleAvatar(
-              radius: 18,
-              backgroundColor: Colors.grey.shade500,
-              foregroundColor: Colors.white,
-              child: const Text("ffen"),
-            ),
-            Gaps.h10,
-            const Expanded(child: TextField())
-          ]),
+            )
+          ],
         ),
       ),
     );

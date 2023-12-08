@@ -54,6 +54,7 @@ class _VideoTimlineScreenState extends State<VideoTimlineScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      displacement: 60,
       onRefresh: _onRefresh,
       child: PageView.builder(
         controller: _pageController,
