@@ -25,13 +25,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final TextEditingController _textEditingController =
       TextEditingController(text: "Hot");
 
-  void _onSearchChanged(String keyword) {
-    print(keyword);
-  }
+  void _onSearchChanged(String keyword) {}
 
-  void _onSearchSubmitted(String keyword) {
-    print(keyword);
-  }
+  void _onSearchSubmitted(String keyword) {}
 
   @override
   void dispose() {

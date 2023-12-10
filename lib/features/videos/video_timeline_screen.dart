@@ -43,8 +43,6 @@ class _VideoTimlineScreenState extends State<VideoTimlineScreen> {
 
   void _onVideoFinished() {
     return;
-    _pageController.nextPage(
-        duration: const Duration(milliseconds: 70), curve: Curves.linear);
   }
 
   Future<void> _onRefresh() async {
