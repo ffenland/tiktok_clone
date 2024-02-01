@@ -38,6 +38,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _initVideoPlayer() async {
+    // initialize를 무조건 해줘야한다.
     await _videoPlayerController.initialize();
 
     setState(() {});

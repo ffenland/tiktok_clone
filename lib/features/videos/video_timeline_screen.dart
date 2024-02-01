@@ -13,6 +13,8 @@ class _VideoTimlineScreenState extends State<VideoTimlineScreen> {
 
   final PageController _pageController = PageController();
 
+  final Duration _scrollDuration = const Duration(milliseconds: 70);
+  final Curve _scrollCurve = Curves.linear;
   List<Color> colors = [
     Colors.blue,
     Colors.red,
@@ -25,7 +27,7 @@ class _VideoTimlineScreenState extends State<VideoTimlineScreen> {
 
   void _onPageChanged(int index) {
     _pageController.animateToPage(index,
-        duration: const Duration(milliseconds: 70), curve: Curves.linear);
+        duration: _scrollDuration, curve: _scrollCurve);
     if (index == _itemCount - 1) {
       colors.addAll([
         Colors.blue,
@@ -42,9 +44,10 @@ class _VideoTimlineScreenState extends State<VideoTimlineScreen> {
   }
 
   void _onVideoFinished() {
-    return;
     _pageController.nextPage(
-        duration: const Duration(milliseconds: 70), curve: Curves.linear);
+      duration: _scrollDuration,
+      curve: _scrollCurve,
+    );
   }
 
   Future<void> _onRefresh() async {
