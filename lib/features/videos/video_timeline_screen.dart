@@ -9,61 +9,47 @@ class VideoTimlineScreen extends StatefulWidget {
 }
 
 class _VideoTimlineScreenState extends State<VideoTimlineScreen> {
-  int _itemCount = 7;
+  int _itemCount = 4;
 
   final PageController _pageController = PageController();
 
-  final Duration _scrollDuration = const Duration(milliseconds: 70);
-  final Curve _scrollCurve = Curves.linear;
-  List<Color> colors = [
-    Colors.blue,
-    Colors.red,
-    Colors.green,
-    Colors.amber,
-    Colors.purple,
-    Colors.pink,
-    Colors.brown,
-  ];
+  final _scrollDuration = const Duration(milliseconds: 150);
+  final _scrollCurve = Curves.linear;
 
   void _onPageChanged(int index) {
-    _pageController.animateToPage(index,
-        duration: _scrollDuration, curve: _scrollCurve);
+    _pageController.animateToPage(
+      index,
+      duration: _scrollDuration,
+      curve: _scrollCurve,
+    );
     if (index == _itemCount - 1) {
-      colors.addAll([
-        Colors.blue,
-        Colors.red,
-        Colors.green,
-        Colors.amber,
-        Colors.purple,
-        Colors.pink,
-        Colors.brown,
-      ]);
-      _itemCount = _itemCount + 7;
+      _itemCount = _itemCount + 4;
       setState(() {});
     }
   }
 
   void _onVideoFinished() {
-    return;
+    _pageController.nextPage(
+      duration: _scrollDuration,
+      curve: _scrollCurve,
+    );
   }
 
-  Future<void> _onRefresh() async {
-    return Future.delayed(const Duration(seconds: 2));
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      displacement: 60,
-      onRefresh: _onRefresh,
-      child: PageView.builder(
-        controller: _pageController,
-        scrollDirection: Axis.vertical,
-        itemCount: _itemCount,
-        itemBuilder: (context, index) =>
-            VideoPost(onVideoFinished: _onVideoFinished, index: index),
-        onPageChanged: _onPageChanged,
-      ),
+    return PageView.builder(
+      controller: _pageController,
+      onPageChanged: _onPageChanged,
+      scrollDirection: Axis.vertical,
+      itemCount: _itemCount,
+      itemBuilder: (context, index) =>
+          VideoPost(onVideoFinished: _onVideoFinished, index: index),
     );
   }
 }
