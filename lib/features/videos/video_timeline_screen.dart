@@ -44,10 +44,7 @@ class _VideoTimlineScreenState extends State<VideoTimlineScreen> {
   }
 
   void _onVideoFinished() {
-    _pageController.nextPage(
-      duration: _scrollDuration,
-      curve: _scrollCurve,
-    );
+    return;
   }
 
   Future<void> _onRefresh() async {
