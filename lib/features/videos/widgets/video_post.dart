@@ -28,6 +28,8 @@ class _VideoPostState extends State<VideoPost>
 
   bool _isPaused = false;
 
+  final Duration _animationDuration = const Duration(milliseconds: 200);
+
   void _onVideoChange() {
     if (_videoPlayerController.value.isInitialized) {
       if (_videoPlayerController.value.duration ==
@@ -91,7 +93,7 @@ class _VideoPostState extends State<VideoPost>
       lowerBound: 1.0,
       upperBound: 1.5,
       value: 1.5,
-      duration: const Duration(milliseconds: 200),
+      duration: _animationDuration,
     );
   }
 
@@ -128,7 +130,7 @@ class _VideoPostState extends State<VideoPost>
                     );
                   },
                   child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 200),
+                    duration: _animationDuration,
                     opacity: _isPaused ? 1 : 0,
                     child: const FaIcon(
                       FontAwesomeIcons.play,
